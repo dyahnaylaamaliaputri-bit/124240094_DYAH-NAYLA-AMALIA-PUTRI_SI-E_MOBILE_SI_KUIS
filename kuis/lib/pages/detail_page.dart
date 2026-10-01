@@ -15,6 +15,8 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   late int _stock;
+  late TextEditingController _controller2 = TextEditingController();
+  late TextEditingController _controller3 = TextEditingController();
 
   @override
   void initState() {
@@ -126,7 +128,7 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        
+
                         Container(
                           width: double.infinity,
                           height: 34,
@@ -205,37 +207,48 @@ class _DetailPageState extends State<DetailPage> {
                         ),
 
                         const SizedBox(height: 8),
-
-                        Container(
-                          width: double.infinity,
-                          height: 34,
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: const Color(0xFF9A7445),
-                              width: 1.2,
-                            ),
-                            borderRadius: BorderRadius.circular(3),
+                        const Text(
+                          'Harga: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
                           ),
-                          child: Text('Deskpripsi'),
                         ),
 
                         const SizedBox(height: 8),
-
-                         Container(
-                          width: double.infinity,
-                          height: 34,
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: const Color(0xFF9A7445),
-                              width: 1.2,
-                            ),
-                            borderRadius: BorderRadius.circular(3),
+                        TextField(
+                          controller: _controller2,
+                          keyboardType: TextInputType
+                              .number, // Memunculkan keyboard angka di HP
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Deskripsi',
                           ),
-                          child: Text('Harga'),
+                          onChanged: (value) {
+                            setState(() {
+                              // a. Terjemahkan teks ketikan ke angka bulat (kalau kosong/salah, jadikan 0)
+                              int parsedValue = int.tryParse(value) ?? 0;
+                              // b. Masukkan angka hasil terjemahan tadi ke dalam data jumlah porsi makanan
+                            });
+                          },
+                        ),
+
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: _controller3,
+                          keyboardType: TextInputType
+                              .number, // Memunculkan keyboard angka di HP
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Masukkan jumlah harga',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              // a. Terjemahkan teks ketikan ke angka bulat (kalau kosong/salah, jadikan 0)
+                              int parsedValue = int.tryParse(value) ?? 0;
+                              // b. Masukkan angka hasil terjemahan tadi ke dalam data jumlah porsi makanan
+                            });
+                          },
                         ),
 
                         const SizedBox(height: 8),
@@ -253,7 +266,7 @@ class _DetailPageState extends State<DetailPage> {
                             ),
 
                             Text(
-                              _stock> 0
+                              _stock > 0
                                   ? 'Rp ${formatPrice(_totalPrice)}'
                                   : 'Rp 0',
                               style: TextStyle(
